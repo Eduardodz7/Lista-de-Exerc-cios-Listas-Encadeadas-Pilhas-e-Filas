@@ -1,0 +1,28 @@
+void remover_valor(No** lista, int valor) {
+    No* atual = *lista;
+    No* anterior = NULL;
+
+    while (atual != NULL && atual->dado != valor) {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    if (atual == NULL) return;
+
+    if (anterior == NULL)
+        *lista = atual->prox;
+    else
+        anterior->prox = atual->prox;
+
+    free(atual);
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_fim(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 3);
+    remover_valor(&lista, 2);
+    imprimir_lista(lista); // Esperado: 1 -> 3 -> NULL
+    return 0;
+}
