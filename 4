@@ -1,0 +1,28 @@
+void inserir_posicao(No** lista, int pos, int valor) {
+    if (pos == 0) {
+        inserir_inicio(lista, valor);
+        return;
+    }
+
+    No* atual = *lista;
+    for (int i = 0; atual != NULL && i < pos - 1; i++) {
+        atual = atual->prox;
+    }
+
+    if (atual == NULL) return;
+
+    No* novo = (No*)malloc(sizeof(No));
+    novo->dado = valor;
+    novo->prox = atual->prox;
+    atual->prox = novo;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_fim(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 4);
+    inserir_posicao(&lista, 2, 3); // Inserir 3 na posição 2
+    imprimir_lista(lista); // Esperado: 1 -> 2 -> 3 -> 4 -> NULL
+    return 0;
+}
