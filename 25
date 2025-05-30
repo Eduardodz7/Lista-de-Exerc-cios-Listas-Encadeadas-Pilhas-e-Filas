@@ -1,0 +1,38 @@
+typedef struct {
+    int dados[MAX];
+    int topo1, topo2;
+} DuasPilhas;
+
+void init(DuasPilhas* dp) {
+    dp->topo1 = -1;
+    dp->topo2 = MAX;
+}
+
+void push1(DuasPilhas* dp, int val) {
+    if (dp->topo1 + 1 == dp->topo2) return;
+    dp->dados[++dp->topo1] = val;
+}
+
+void push2(DuasPilhas* dp, int val) {
+    if (dp->topo2 - 1 == dp->topo1) return;
+    dp->dados[--dp->topo2] = val;
+}
+
+int pop1(DuasPilhas* dp) {
+    return dp->dados[dp->topo1--];
+}
+
+int pop2(DuasPilhas* dp) {
+    return dp->dados[dp->topo2++];
+}
+
+int main() {
+    DuasPilhas dp;
+    init(&dp);
+    push1(&dp, 1);
+    push2(&dp, 9);
+    push1(&dp, 2);
+    printf("Pop1: %d\n", pop1(&dp));
+    printf("Pop2: %d\n", pop2(&dp));
+    return 0;
+}
