@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct No {
+    char *bin;
+    struct No *prox;
+} No;
+
+void gerar_binarios(int N) {
+    No *inicio = NULL, *fim = NULL;
+
+    No *novo = malloc(sizeof(No));
+    novo->bin = strdup("1");
+    novo->prox = NULL;
+    inicio = fim = novo;
+
+    while (N--) {
+        No *atual = inicio;
+        printf("%s ", atual->bin);
+        inicio = inicio->prox;
+        if (!inicio) fim = NULL;
+
+        No *zero = malloc(sizeof(No));
+        No *um = malloc(sizeof(No));
+        zero->bin = malloc(strlen(atual->bin) + 2);
+        um->bin = malloc(strlen(atual->bin) + 2);
+        sprintf(zero->bin, "%s0", atual->bin);
+        sprintf(um->bin, "%s1", atual->bin);
+        zero->prox = um;
+        um->prox = NULL;
+        if (!fim) inicio = zero;
+        else fim->prox = zero;
+        fim = um;
+        free(atual->bin);
+        free(atual);
+    }
+    printf("\n");
+}
+
+int main() {
+    gerar_binarios(5); // 1 10 11 100 101
+    return 0;
+}
