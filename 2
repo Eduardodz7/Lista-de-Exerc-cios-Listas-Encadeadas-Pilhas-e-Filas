@@ -1,0 +1,17 @@
+int contar_nos(No* lista) {
+    int count = 0;
+    while (lista != NULL) {
+        count++;
+        lista = lista->prox;
+    }
+    return count;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_inicio(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 3);
+    printf("Total de nós: %d\n", contar_nos(lista)); // Esperado: 3
+    return 0;
+}
