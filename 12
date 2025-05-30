@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+
+void inverter_string(char *str) {
+    int len = strlen(str);
+    char pilha[len];
+    for (int i = 0; i < len; i++)
+        pilha[i] = str[i];
+    for (int i = 0; i < len; i++)
+        str[i] = pilha[len - 1 - i];
+}
+
+int main() {
+    char s[] = "hello";
+    inverter_string(s);
+    printf("%s\n", s); // "olleh"
+    return 0;
+}
