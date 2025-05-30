@@ -1,0 +1,33 @@
+typedef struct {
+    int dados[100];
+    int topo;
+} PilhaArray;
+
+void push_arr(PilhaArray* p, int val) {
+    if (p->topo < 99) p->dados[++(p->topo)] = val;
+}
+
+int pop_arr(PilhaArray* p) {
+    if (p->topo >= 0) return p->dados[(p->topo)--];
+    return -1;
+}
+
+int topo_arr(PilhaArray* p) {
+    if (p->topo >= 0) return p->dados[p->topo];
+    return -1;
+}
+
+int esta_vazia(PilhaArray* p) {
+    return p->topo == -1;
+}
+
+int main() {
+    PilhaArray p;
+    p.topo = -1;
+    push_arr(&p, 10);
+    push_arr(&p, 20);
+    printf("Topo: %d\n", topo_arr(&p)); // Esperado: 20
+    printf("Pop: %d\n", pop_arr(&p)); // Esperado: 20
+    printf("Está vazia: %d\n", esta_vazia(&p)); // Esperado: 0
+    return 0;
+}
