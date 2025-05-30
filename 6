@@ -1,0 +1,24 @@
+void inverter_lista(No** lista) {
+    No* anterior = NULL;
+    No* atual = *lista;
+    No* prox = NULL;
+
+    while (atual != NULL) {
+        prox = atual->prox;
+        atual->prox = anterior;
+        anterior = atual;
+        atual = prox;
+    }
+
+    *lista = anterior;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_fim(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 3);
+    inverter_lista(&lista);
+    imprimir_lista(lista); // Esperado: 3 -> 2 -> 1 -> NULL
+    return 0;
+}
