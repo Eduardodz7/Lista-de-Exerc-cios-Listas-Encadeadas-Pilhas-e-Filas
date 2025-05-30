@@ -1,0 +1,33 @@
+typedef struct {
+    Pilha entrada, saida;
+} FilaComPilhas;
+
+void init_fila(FilaComPilhas* f) {
+    init(&f->entrada);
+    init(&f->saida);
+}
+
+void enfileirar(FilaComPilhas* f, int val) {
+    push(&f->entrada, val);
+}
+
+int desenfileirar(FilaComPilhas* f) {
+    if (f->saida.topo < 0) {
+        while (f->entrada.topo >= 0) {
+            push(&f->saida, pop(&f->entrada));
+        }
+    }
+    return pop(&f->saida);
+}
+
+int main() {
+    FilaComPilhas f;
+    init_fila(&f);
+    enfileirar(&f, 1);
+    enfileirar(&f, 2);
+    enfileirar(&f, 3);
+    printf("Removido: %d\n", desenfileirar(&f)); // 1
+    enfileirar(&f, 4);
+    printf("Removido: %d\n", desenfileirar(&f)); // 2
+    return 0;
+}
