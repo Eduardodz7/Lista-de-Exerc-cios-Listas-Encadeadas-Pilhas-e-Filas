@@ -1,0 +1,22 @@
+No* encontrar_meio(No* lista) {
+    No *lento = lista, *rapido = lista;
+
+    while (rapido != NULL && rapido->prox != NULL) {
+        lento = lento->prox;
+        rapido = rapido->prox->prox;
+    }
+
+    return lento;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_fim(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 3);
+    inserir_fim(&lista, 4);
+    inserir_fim(&lista, 5);
+    No* meio = encontrar_meio(lista);
+    printf("Meio: %d\n", meio->dado); // Esperado: 3
+    return 0;
+}
