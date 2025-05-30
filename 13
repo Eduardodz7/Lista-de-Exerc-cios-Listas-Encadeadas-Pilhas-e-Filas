@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+
+int eh_palindromo(const char *str) {
+    int len = strlen(str);
+    char pilha[len];
+    for (int i = 0; i < len; i++)
+        pilha[i] = str[i];
+    for (int i = 0; i < len; i++)
+        if (str[i] != pilha[len - 1 - i]) return 0;
+    return 1;
+}
+
+int main() {
+    printf("%d\n", eh_palindromo("radar")); // 1
+    printf("%d\n", eh_palindromo("teste")); // 0
+    return 0;
+}
