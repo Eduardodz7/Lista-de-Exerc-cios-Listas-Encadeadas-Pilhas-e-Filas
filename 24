@@ -1,0 +1,42 @@
+#define MAX 100
+
+typedef struct {
+    int dados[MAX], minimos[MAX];
+    int topo, topo_min;
+} PilhaMin;
+
+void inicializar(PilhaMin* p) {
+    p->topo = p->topo_min = -1;
+}
+
+void push(PilhaMin* p, int valor) {
+    p->dados[++p->topo] = valor;
+    if (p->topo_min == -1 || valor <= p->minimos[p->topo_min])
+        p->minimos[++p->topo_min] = valor;
+}
+
+void pop(PilhaMin* p) {
+    if (p->dados[p->topo] == p->minimos[p->topo_min])
+        p->topo_min--;
+    p->topo--;
+}
+
+int obter_minimo(PilhaMin* p) {
+    return p->minimos[p->topo_min];
+}
+
+int top(PilhaMin* p) {
+    return p->dados[p->topo];
+}
+
+int main() {
+    PilhaMin pilha;
+    inicializar(&pilha);
+    push(&pilha, 5);
+    push(&pilha, 3);
+    push(&pilha, 7);
+    printf("Mínimo: %d\n", obter_minimo(&pilha));
+    pop(&pilha);
+    printf("Topo: %d, Mínimo: %d\n", top(&pilha), obter_minimo(&pilha));
+    return 0;
+}
