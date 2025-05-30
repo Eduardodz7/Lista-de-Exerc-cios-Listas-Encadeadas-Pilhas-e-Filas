@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX 100
+
+typedef struct {
+    int dados[MAX];
+    int topo;
+} Pilha;
+
+void init(Pilha* p) { p->topo = -1; }
+void push(Pilha* p, int val) { p->dados[++p->topo] = val; }
+int pop(Pilha* p) { return p->dados[p->topo--]; }
+
+int avaliar_posfixa(const char* expr) {
+    Pilha pilha;
+    init(&pilha);
+    char* copia = strdup(expr);
+    char* token = strtok(copia, " ");
+    
+    while (token) {
+        if (isdigit(token[0])) {
+            push(&pilha, atoi(token));
+        } else {
+            int b = pop(&pilha);
+            int a = pop(&pilha);
+            switch (token[0]) {
+                case '+': push(&pilha, a + b); break;
+                case '-': push(&pilha, a - b); break;
+                case '*': push(&pilha, a * b); break;
+                case '/': push(&pilha, a / b); break;
+            }
+        }
+        token = strtok(NULL, " ");
+    }
+    int resultado = pop(&pilha);
+    free(copia);
+    return resultado;
+}
+
+int main() {
+    printf("Resultado: %d\n", avaliar_posfixa("3 4 + 2 *")); // 14
+    printf("Resultado: %d\n", avaliar_posfixa("5 1 2 + 4 * + 3 -")); // 14
+    return 0;
+}
