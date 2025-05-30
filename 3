@@ -1,0 +1,18 @@
+int buscar_elemento(No* lista, int valor) {
+    while (lista != NULL) {
+        if (lista->dado == valor)
+            return 1;
+        lista = lista->prox;
+    }
+    return 0;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_fim(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 3);
+    printf("Busca 2: %d\n", buscar_elemento(lista, 2)); // Esperado: 1
+    printf("Busca 5: %d\n", buscar_elemento(lista, 5)); // Esperado: 0
+    return 0;
+}
