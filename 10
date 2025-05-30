@@ -1,0 +1,34 @@
+typedef struct NoPilha {
+    int dado;
+    struct NoPilha* prox;
+} NoPilha;
+
+void push_lista(NoPilha** topo, int val) {
+    NoPilha* novo = (NoPilha*)malloc(sizeof(NoPilha));
+    novo->dado = val;
+    novo->prox = *topo;
+    *topo = novo;
+}
+
+int pop_lista(NoPilha** topo) {
+    if (*topo == NULL) return -1;
+    NoPilha* temp = *topo;
+    int val = temp->dado;
+    *topo = temp->prox;
+    free(temp);
+    return val;
+}
+
+int topo_lista(NoPilha* topo) {
+    return topo ? topo->dado : -1;
+}
+
+int main() {
+    NoPilha* pilha = NULL;
+    push_lista(&pilha, 1);
+    push_lista(&pilha, 2);
+    printf("Topo: %d\n", topo_lista(pilha)); // Esperado: 2
+    printf("Pop: %d\n", pop_lista(&pilha)); // Esperado: 2
+    printf("Novo topo: %d\n", topo_lista(pilha)); // Esperado: 1
+    return 0;
+}
