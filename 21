@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    int dado;
+    struct No* prox;
+} No;
+
+void remover_todas_ocorrencias(No** cabeca, int valor) {
+    while (*cabeca && (*cabeca)->dado == valor) {
+        No* temp = *cabeca;
+        *cabeca = (*cabeca)->prox;
+        free(temp);
+    }
+    No* atual = *cabeca;
+    while (atual && atual->prox) {
+        if (atual->prox->dado == valor) {
+            No* temp = atual->prox;
+            atual->prox = temp->prox;
+            free(temp);
+        } else {
+            atual = atual->prox;
+        }
+    }
+}
+
+void imprimir(No* cabeca) {
+    while (cabeca) {
+        printf("%d ", cabeca->dado);
+        cabeca = cabeca->prox;
+    }
+    printf("\n");
+}
+
+void inserir(No** cabeca, int valor) {
+    No* novo = malloc(sizeof(No));
+    novo->dado = valor;
+    novo->prox = *cabeca;
+    *cabeca = novo;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir(&lista, 1);
+    inserir(&lista, 2);
+    inserir(&lista, 3);
+    inserir(&lista, 2);
+    inserir(&lista, 4);
+
+    printf("Lista original: ");
+    imprimir(lista);
+
+    remover_todas_ocorrencias(&lista, 2);
+    printf("Após remoção: ");
+    imprimir(lista);
+
+    return 0;
+}
