@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    int val;
+    struct No *prox;
+} No;
+
+No* unir_listas_ordenadas(No *a, No *b) {
+    No dummy, *tail = &dummy;
+    dummy.prox = NULL;
+
+    while (a && b) {
+        if (a->val < b->val) {
+            tail->prox = a;
+            a = a->prox;
+        } else {
+            tail->prox = b;
+            b = b->prox;
+        }
+        tail = tail->prox;
+    }
+    tail->prox = a ? a : b;
+    return dummy.prox;
+}
+
+void imprimir_lista(No *inicio) {
+    while (inicio) {
+        printf("%d ", inicio->val);
+        inicio = inicio->prox;
+    }
+    printf("\n");
+}
+
+int main() {
+    No *a = malloc(sizeof(No));
+    No *b = malloc(sizeof(No));
+    No *c = malloc(sizeof(No));
+    a->val = 1; b->val = 3; c->val = 5;
+    a->prox = b; b->prox = c; c->prox = NULL;
+
+    No *x = malloc(sizeof(No));
+    No *y = malloc(sizeof(No));
+    x->val = 2; y->val = 4;
+    x->prox = y; y->prox = NULL;
+
+    No *res = unir_listas_ordenadas(a, x);
+    imprimir_lista(res); // 1 2 3 4 5
+    return 0;
+}
