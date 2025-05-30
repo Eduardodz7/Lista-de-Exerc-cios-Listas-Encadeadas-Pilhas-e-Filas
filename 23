@@ -1,0 +1,44 @@
+int comprimento(No* head) {
+    int len = 0;
+    while (head) {
+        len++;
+        head = head->prox;
+    }
+    return len;
+}
+
+void rotacionar_lista(No** head, int k) {
+    if (!*head || k == 0) return;
+    int len = comprimento(*head);
+    k = k % len;
+    if (k == 0) return;
+
+    No* temp = *head;
+    for (int i = 1; i < len - k; i++)
+        temp = temp->prox;
+
+    No* nova_cabeca = temp->prox;
+    temp->prox = NULL;
+
+    No* fim = nova_cabeca;
+    while (fim->prox)
+        fim = fim->prox;
+
+    fim->prox = *head;
+    *head = nova_cabeca;
+}
+
+int main() {
+    No* lista = NULL;
+    for (int i = 5; i >= 1; i--)
+        inserir(&lista, i);
+
+    printf("Original: ");
+    imprimir(lista);
+
+    rotacionar_lista(&lista, 2);
+    printf("Rotacionada: ");
+    imprimir(lista);
+
+    return 0;
+}
