@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+#define MAX 100
+
+void inverter_primeiros_k(int fila[], int n, int k) {
+    int pilha[MAX];
+    for (int i = 0; i < k; i++)
+        pilha[i] = fila[i];
+    for (int i = 0; i < k; i++)
+        fila[i] = pilha[k - 1 - i];
+}
+
+int main() {
+    int fila[] = {1, 2, 3, 4, 5};
+    inverter_primeiros_k(fila, 5, 3); // Fila vira 3 2 1 4 5
+    for (int i = 0; i < 5; i++)
+        printf("%d ", fila[i]);
+    printf("\n");
+    return 0;
+}
