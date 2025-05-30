@@ -1,0 +1,35 @@
+#define TAM_PILHA 100
+
+typedef struct {
+    int dados[TAM_PILHA];
+    int topo;
+} Pilha;
+
+void push(Pilha* p, int val) {
+    if (p->topo < TAM_PILHA - 1)
+        p->dados[++(p->topo)] = val;
+}
+
+void imprimir_reverso(No* lista) {
+    Pilha p;
+    p.topo = -1;
+
+    while (lista != NULL) {
+        push(&p, lista->dado);
+        lista = lista->prox;
+    }
+
+    while (p.topo >= 0) {
+        printf("%d -> ", p.dados[p.topo--]);
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    No* lista = NULL;
+    inserir_fim(&lista, 1);
+    inserir_fim(&lista, 2);
+    inserir_fim(&lista, 3);
+    imprimir_reverso(lista); // Esperado: 3 -> 2 -> 1 -> NULL
+    return 0;
+}
