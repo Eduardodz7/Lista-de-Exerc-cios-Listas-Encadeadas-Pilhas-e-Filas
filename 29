@@ -1,0 +1,44 @@
+No* inverter_lista(No* head) {
+    No* prev = NULL, *curr = head, *next = NULL;
+    while (curr) {
+        next = curr->prox;
+        curr->prox = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+int eh_palindromo(No* head) {
+    if (!head || !head->prox) return 1;
+    No *slow = head, *fast = head;
+    while (fast && fast->prox) {
+        slow = slow->prox;
+        fast = fast->prox->prox;
+    }
+    No* segunda_metade = inverter_lista(slow);
+    No* p1 = head;
+    No* p2 = segunda_metade;
+    int palindromo = 1;
+    while (p2) {
+        if (p1->dado != p2->dado) {
+            palindromo = 0;
+            break;
+        }
+        p1 = p1->prox;
+        p2 = p2->prox;
+    }
+    inverter_lista(segunda_metade); // restaurar
+    return palindromo;
+}
+
+int main() {
+    No* lista = NULL;
+    inserir(&lista, 1);
+    inserir(&lista, 2);
+    inserir(&lista, 3);
+    inserir(&lista, 2);
+    inserir(&lista, 1);
+    printf("É palíndromo? %s\n", eh_palindromo(lista) ? "Sim" : "Não");
+    return 0;
+}
